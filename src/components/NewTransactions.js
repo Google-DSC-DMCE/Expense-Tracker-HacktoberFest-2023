@@ -5,11 +5,10 @@ const Container = styled(Box)`
   display: flex;
   flex-direction: column;
   & > h4 {
-    margin-top: 40px;
+    margin: 20px 0 10px 0;
   }
-  & > div,
   & > button {
-    margin-top: 40px;
+    margin-top: 20px;
   }
 `;
 
