@@ -30,6 +30,9 @@ const NewTransactions = ({ setTransactions }) => {
     const transactionAmount = parseFloat(amount); // Use parseFloat to ensure a valid number
     if (isNaN(transactionAmount)) {
       setError("Please enter a valid number for the amount.");
+     
+      setTimeout(() => { setError(null); }
+      ,1000);
     } else {
       const newBalance = balance + transactionAmount;
       console.log(balance);
@@ -37,15 +40,18 @@ const NewTransactions = ({ setTransactions }) => {
       console.log(newBalance);
       if (newBalance < 0) {
         setError("You don't have enough balance.");
+        setTimeout(() => { setError(null); }
+      ,1000);
       } else {
         const transaction = {
           id: Math.floor(Math.random() * 100000),
           text: text,
           amount: transactionAmount,
         };
+        
+        setError(null);
         setTransactions((prevState) => [transaction, ...prevState]);
         setBalance(newBalance);
-        setError(null);
         setText("");
         setAmount("");
       }
@@ -55,7 +61,6 @@ const NewTransactions = ({ setTransactions }) => {
   return (
     <Container>
       <Typography variant="h4">New Transaction</Typography>
-      {error && <Alert severity="error">{error}</Alert>}
       <TextField
         variant="filled"
         label="Enter Transaction"
@@ -68,9 +73,12 @@ const NewTransactions = ({ setTransactions }) => {
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
       />
+      
+      {error && <Alert severity="error">{error}</Alert>}
       <Button variant="contained" onClick={() => addTransaction()}>
         Add Transaction
       </Button>
+      
     </Container>
   );
 };
